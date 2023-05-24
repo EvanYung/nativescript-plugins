@@ -55,12 +55,26 @@ module.exports = {
       },
     },
     '⚙️': {
-      script: `npx cowsay "@nativescript/* packages will keep your ⚙️ cranking"`,
-      description: '_____________  @nativescript/*  _____________',
+      script: `npx cowsay "@evanyung/* packages will keep your ⚙️ cranking"`,
+      description: '_____________  @evanyung/*  _____________',
     },
     // packages
     // build output is always in dist/packages
-    '@nativescript': {
+    '@evanyung': {
+      // @evanyung/amap
+      amap: {
+        build: {
+          script: 'nx run amap:build.all',
+          description: '@evanyung/amap: Build',
+        },
+      },
+      // @evanyung/nativescript-amap
+      'nativescript-amap': {
+        build: {
+          script: 'nx run nativescript-amap:build.all',
+          description: '@evanyung/nativescript-amap: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -71,8 +85,16 @@ module.exports = {
       description: '_____________  Focus (VS Code supported)  _____________',
     },
     focus: {
+      amap: {
+        script: 'nx run amap:focus',
+        description: 'Focus on @evanyung/amap',
+      },
+      'nativescript-amap': {
+        script: 'nx run nativescript-amap:focus',
+        description: 'Focus on @evanyung/nativescript-amap',
+      },
       reset: {
-        script: 'nx g @nativescript/plugin-tools:focus-packages',
+        script: 'nx g @evanyung/plugin-tools:focus-packages',
         description: 'Reset Focus',
       },
     },
@@ -81,4 +103,4 @@ module.exports = {
       description: '.....................',
     },
   },
-};
+}

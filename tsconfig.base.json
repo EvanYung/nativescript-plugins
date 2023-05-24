@@ -20,7 +20,9 @@
       }
     ],
     "paths": {
-      "@demo/shared": ["tools/demo/index.ts"]
+      "@demo/shared": ["tools/demo/index.ts"],
+      "@evanyung/*": ["packages/*"],
+      "@evanyung/nativescript-amap": ["packages/nativescript-amap/index.d.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
