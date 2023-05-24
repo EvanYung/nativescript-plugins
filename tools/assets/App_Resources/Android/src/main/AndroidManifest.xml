@@ -44,7 +44,7 @@
       android:exported="true">
 
 			<meta-data android:name="SET_THEME_ON_LAUNCH" android:resource="@style/AppTheme" />
-      <meta-data android:name="com.amap.api.v2.apikey" android:value="609ebe6254ef21379968129059436d94"/>
+      <meta-data android:name="com.amap.api.v2.apikey" android:value="1fcacb5584b51bd70b71fd272c6ec909"/>
 
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

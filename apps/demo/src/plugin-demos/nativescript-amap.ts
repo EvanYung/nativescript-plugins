@@ -1,4 +1,4 @@
-import { Observable, EventData, Page } from '@nativescript/core'
+import { EventData, Page } from '@nativescript/core'
 import { DemoSharedNativescriptAmap } from '@demo/shared'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { AMap, AMapOnReadyData, AMapOptionsForAndroid, MapType, UiSettings } from '@evanyung/nativescript-amap'
