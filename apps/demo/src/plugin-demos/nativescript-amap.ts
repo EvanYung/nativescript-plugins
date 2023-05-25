@@ -16,11 +16,19 @@ export class DemoModel extends DemoSharedNativescriptAmap {
     this.aMapOptions = new AMapOptionsForAndroid()
     this.aMapOptions.rotateGesturesEnabled(false)
     this.aMapOptions.mapType(MapType.MAP_TYPE_BUS)
+
+    this.aMapOptions.camera({
+      target: {
+        latitude: 31.238068,
+        longitude: 121.501654,
+      },
+      zoom: 10,
+    })
   }
 
   onMapReady(args: AMapOnReadyData): void {
     const map: AMap = args.map
     const uiSettings: UiSettings = map.getUiSettings()
-    uiSettings.setZoomControlsEnabled(false)
+    uiSettings.setZoomControlsEnabled(true)
   }
 }

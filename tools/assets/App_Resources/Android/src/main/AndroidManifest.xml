@@ -11,23 +11,20 @@
 		android:xlargeScreens="true"/>
 
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
-  	<!--允许程序打开网络套接字-->
-	<uses-permission android:name="android.permission.INTERNET" />
-	<!--允许程序设置内置sd卡的写权限-->
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<!--允许程序获取网络状态-->
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<!--允许程序访问WiFi网络信息-->
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<!--允许程序读写手机状态和身份-->
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	<!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <!--允许程序打开网络套接字-->
+  <uses-permission android:name="android.permission.INTERNET" />
+  <!--允许程序设置内置sd卡的写权限-->
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <!--允许程序获取网络状态-->
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <!--允许程序访问WiFi网络信息-->
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <!--允许程序读写手机状态和身份-->
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+  <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 	<application
 		android:name="com.tns.NativeScriptApplication"
@@ -35,6 +32,8 @@
 		android:icon="@drawable/icon"
 		android:label="@string/app_name"
 		android:theme="@style/AppTheme">
+
+    <service android:name="com.amap.api.location.APSService" />
 
 		<activity
 			android:name="com.tns.NativeScriptActivity"
@@ -44,7 +43,7 @@
       android:exported="true">
 
 			<meta-data android:name="SET_THEME_ON_LAUNCH" android:resource="@style/AppTheme" />
-      <meta-data android:name="com.amap.api.v2.apikey" android:value="1fcacb5584b51bd70b71fd272c6ec909"/>
+      <meta-data android:name="com.amap.api.v2.apikey" android:value="01d3d1b165dd2f45f3e257032da1c345"/>
 
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

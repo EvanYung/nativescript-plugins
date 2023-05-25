@@ -1,15 +1,23 @@
-import { AMap, UiSettings, AMapCommon, AMapViewBase, AMapOnReadyData, LogoMargin, LogoPosition, ZoomPosition, MapType } from './common'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AMap, UiSettings, AMapCommon, AMapViewBase, AMapOnReadyData, LogoPosition, ZoomPosition } from './common'
 
 declare let com
 
 export class AMapView extends AMapViewBase {
   private mapView: any
 
-  public createNativeView(): object {
+  public createNativeView(): globalAndroid.widget.FrameLayout {
     const nativeView = new android.widget.FrameLayout(this._context)
+
+    // 在构造MapView之前必须进行合规检查（OfflineMapManager，LBSTraceClient等也是一样的操作），设置接口之前保证隐私政策合规
+    const MapsInitializer = com.amap.api.maps.MapsInitializer
+    MapsInitializer.updatePrivacyShow(this._context, true, true)
+    MapsInitializer.updatePrivacyAgree(this._context, true)
+
     setTimeout(() => {
       this.initMap()
     }, 0)
+
     return nativeView
   }
 
@@ -20,11 +28,14 @@ export class AMapView extends AMapViewBase {
     this.mapView.onCreate(null)
     this.nativeView.addView(this.mapView)
     this.map = new AMapAPI(this.mapView.getMap())
-    this.notify(<AMapOnReadyData>{
-      eventName: AMapViewBase.mapReadyEvent,
-      object: this,
-      map: this.map,
-      android: this.mapView,
+
+    this.map.setOnMapLoadedListener(() => {
+      this.notify(<AMapOnReadyData>{
+        eventName: AMapViewBase.mapReadyEvent,
+        object: this,
+        map: this.map,
+        android: this.mapView,
+      })
     })
   }
 
@@ -41,7 +52,7 @@ export class AMapView extends AMapViewBase {
 export class AMapAPI extends AMapCommon implements AMap {
   private _UiSettings: UiSettings
 
-  constructor(private _map: any) {
+  constructor(private _map: AMap) {
     super()
   }
 
@@ -73,6 +84,17 @@ export class AMapAPI extends AMapCommon implements AMap {
     }
     return this._UiSettings
   }
+
+  // 地图加载完成监听接口
+  setOnMapLoadedListener(listener: () => void): void {
+    this._map.setOnMapLoadedListener(
+      new com.amap.api.maps.AMap.OnMapLoadedListener({
+        onMapLoaded: () => {
+          listener()
+        },
+      }),
+    )
+  }
 }
 
 /**
@@ -81,9 +103,9 @@ export class AMapAPI extends AMapCommon implements AMap {
  * http://a.amap.com/lbs/static/unzip/Android_Map_Doc/index.html
  */
 export class UiSettingsAPI implements UiSettings {
-  private uiSettings: any
+  private uiSettings: UiSettings
 
-  constructor(private map: any) {
+  constructor(private map: AMap) {
     this.uiSettings = map.getUiSettings()
   }
 

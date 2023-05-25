@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { View, Property } from '@nativescript/core'
 
 declare let com
@@ -27,6 +28,18 @@ export enum MapType {
   MAP_TYPE_BUS = 5,
 }
 
+export interface LatLng {
+  latitude: number
+  longitude: number
+}
+
+export interface CameraPosition {
+  target: LatLng
+  zoom?: number
+  tilt?: number
+  bearing?: number
+}
+
 /**
  * AMapOptions（for android）
  * MapView 初始化选项
@@ -41,6 +54,20 @@ export class AMapOptionsForAndroid {
 
   constructor() {
     this._AMapOptions = new com.amap.api.maps.AMapOptions()
+  }
+
+  // 设置地图初始化时的地图状态， 默认地图中心点为北京天安门，缩放级别为 10.0f
+  camera(camera: CameraPosition): AMapOptionsForAndroid {
+    const target = new com.amap.api.maps.model.LatLng(camera.target.latitude, camera.target.longitude)
+    const cameraPosition = new com.amap.api.maps.model.CameraPosition(target, camera.zoom, camera.tilt, camera.bearing)
+
+    this._AMapOptions.camera(cameraPosition)
+    return this
+  }
+
+  // 获取初始化选项中地图状态。
+  getCamera(): CameraPosition {
+    return this._AMapOptions.getCamera()
   }
 
   // 设置指南针是否可用
@@ -154,6 +181,8 @@ export interface AMap {
   getMapType(): number
   // 返回地图的用户界面设置对象
   getUiSettings(): UiSettings
+
+  setOnMapLoadedListener(listener: () => void): void
 }
 
 export interface UiSettings {
