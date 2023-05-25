@@ -21,7 +21,7 @@ export class AMapView extends AMapViewBase {
     return nativeView
   }
 
-  initMap(): void {
+  initMap() {
     if (this.mapView) return
     const mapOptions = this.aMapOptions?.getAMapOptions() || new com.amap.api.maps.AMapOptions()
     this.mapView = new com.amap.api.maps.MapView(this._context, mapOptions)
@@ -39,7 +39,7 @@ export class AMapView extends AMapViewBase {
     })
   }
 
-  getMapView(): any {
+  getMapView() {
     return this.mapView
   }
 }
