@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { View, Property } from '@nativescript/core'
 
-declare let com
-
 export enum LogoPosition {
   LOGO_POSITION_BOTTOM_LEFT = 0,
   LOGO_POSITION_BOTTOM_CENTER = 1,
@@ -40,311 +38,197 @@ export interface CameraPosition {
   bearing?: number
 }
 
-/**
- * AMapOptions（for android）
- * MapView 初始化选项
- * com.amap.api.maps.AMapOptions
- */
-export class AMapOptionsForAndroid {
-  private _AMapOptions: any
+export class AMapOptionsCommon {
+  constructor(private $aMapOptions, private $LatLng, private $CameraPosition) {}
 
-  getAMapOptions(): any {
-    return this._AMapOptions
-  }
-
-  constructor() {
-    this._AMapOptions = new com.amap.api.maps.AMapOptions()
+  get get$AMapOptions() {
+    return this.$aMapOptions
   }
 
   // 设置地图初始化时的地图状态， 默认地图中心点为北京天安门，缩放级别为 10.0f
-  camera(camera: CameraPosition): AMapOptionsForAndroid {
-    const target = new com.amap.api.maps.model.LatLng(camera.target.latitude, camera.target.longitude)
-    const cameraPosition = new com.amap.api.maps.model.CameraPosition(target, camera.zoom, camera.tilt, camera.bearing)
+  camera(camera: CameraPosition): AMapOptionsCommon {
+    const target = new this.$LatLng(camera.target.latitude, camera.target.longitude)
+    const cameraPosition = new this.$CameraPosition(target, camera.zoom, camera.tilt, camera.bearing)
 
-    this._AMapOptions.camera(cameraPosition)
+    this.$aMapOptions.camera(cameraPosition)
     return this
   }
 
   // 获取初始化选项中地图状态。
   getCamera(): CameraPosition {
-    return this._AMapOptions.getCamera()
+    return this.$aMapOptions.getCamera()
   }
 
   // 设置指南针是否可用
-  compassEnabled(enabled: boolean): AMapOptionsForAndroid {
-    this._AMapOptions.compassEnabled(enabled)
+  compassEnabled(enabled: boolean): AMapOptionsCommon {
+    this.$aMapOptions.compassEnabled(enabled)
     return this
   }
 
   // 返回初始化选项中指南针功能是否可用
   getCompassEnabled(): boolean {
-    return this._AMapOptions.getCompassEnabled()
+    return this.$aMapOptions.getCompassEnabled()
   }
 
   // 获取初始化选项“高德地图”Logo的位置
   getLogoPosition(): number {
-    return this._AMapOptions.getLogoPosition()
+    return this.$aMapOptions.getLogoPosition()
   }
 
   // 返回初始化选项中地图模式
   getMapType(): number {
-    return this._AMapOptions.getMapType()
+    return this.$aMapOptions.getMapType()
   }
 
   // 返回初始化选项中地图旋转手势是否可用
   getRotateGesturesEnabled(): boolean {
-    return this._AMapOptions.getRotateGesturesEnabled()
+    return this.$aMapOptions.getRotateGesturesEnabled()
   }
 
   // 返回初始化选项中比例尺功能是否可用
   getScaleControlsEnabled(): boolean {
-    return this._AMapOptions.getScaleControlsEnabled()
+    return this.$aMapOptions.getScaleControlsEnabled()
   }
 
   // 返回初始化选项中拖动手势是否可用
   getScrollGesturesEnabled(): boolean {
-    return this._AMapOptions.getScrollGesturesEnabled()
+    return this.$aMapOptions.getScrollGesturesEnabled()
   }
 
   // 返回初始化选项中地图倾斜手势（显示3D效果）是否可用
   getTiltGesturesEnabled(): boolean {
-    return this._AMapOptions.getTiltGesturesEnabled()
+    return this.$aMapOptions.getTiltGesturesEnabled()
   }
 
   // 返回初始化选项中地图是否允许缩放
   getZoomControlsEnabled(): boolean {
-    return this._AMapOptions.getZoomControlsEnabled()
+    return this.$aMapOptions.getZoomControlsEnabled()
   }
 
   // 返回初始化选项中缩放手势是否可用
   getZoomGesturesEnabled(): boolean {
-    return this._AMapOptions.getZoomGesturesEnabled()
+    return this.$aMapOptions.getZoomGesturesEnabled()
   }
 
   // 设置“高德地图”Logo的位置
-  logoPosition(position: LogoPosition): AMapOptionsForAndroid {
-    this._AMapOptions.logoPosition(position)
+  logoPosition(position: LogoPosition): AMapOptionsCommon {
+    this.$aMapOptions.logoPosition(position)
     return this
   }
 
   // 设置地图模式，默认普通地图
-  mapType(mapType: MapType): AMapOptionsForAndroid {
-    this._AMapOptions.mapType(mapType)
+  mapType(mapType: MapType): AMapOptionsCommon {
+    this.$aMapOptions.mapType(mapType)
     return this
   }
 
   // 设置地图是否可以通过手势进行旋转
-  rotateGesturesEnabled(enabled: boolean): AMapOptionsForAndroid {
-    this._AMapOptions.rotateGesturesEnabled(enabled)
+  rotateGesturesEnabled(enabled: boolean): AMapOptionsCommon {
+    this.$aMapOptions.rotateGesturesEnabled(enabled)
     return this
   }
 
   // 设置地图是否显示比例尺，默认为false
-  scaleControlsEnabled(enabled: boolean): AMapOptionsForAndroid {
-    this._AMapOptions.scaleControlsEnabled(enabled)
+  scaleControlsEnabled(enabled: boolean): AMapOptionsCommon {
+    this.$aMapOptions.scaleControlsEnabled(enabled)
     return this
   }
 
   // 设置地图是否可以通过手势滑动
-  scrollGesturesEnabled(enabled: boolean): AMapOptionsForAndroid {
-    this._AMapOptions.scrollGesturesEnabled(enabled)
+  scrollGesturesEnabled(enabled: boolean): AMapOptionsCommon {
+    this.$aMapOptions.scrollGesturesEnabled(enabled)
     return this
   }
 
   // 设置地图是否可以通过手势倾斜（3D效果），默认为true
-  tiltGesturesEnabled(enabled: boolean): AMapOptionsForAndroid {
-    this._AMapOptions.tiltGesturesEnabled(enabled)
+  tiltGesturesEnabled(enabled: boolean): AMapOptionsCommon {
+    this.$aMapOptions.tiltGesturesEnabled(enabled)
     return this
   }
 
   // 设置地图是否允许缩放
-  zoomControlsEnabled(enabled: boolean): AMapOptionsForAndroid {
-    this._AMapOptions.zoomControlsEnabled(enabled)
+  zoomControlsEnabled(enabled: boolean): AMapOptionsCommon {
+    this.$aMapOptions.zoomControlsEnabled(enabled)
     return this
   }
 
   // 设置地图是否可以通过手势进行缩放
-  zoomGesturesEnabled(enabled: boolean): AMapOptionsForAndroid {
-    this._AMapOptions.zoomGesturesEnabled(enabled)
+  zoomGesturesEnabled(enabled: boolean): AMapOptionsCommon {
+    this.$aMapOptions.zoomGesturesEnabled(enabled)
     return this
   }
 }
 
-export interface AMap {
-  /**
-   * 定义Amap组件可用接口
-   */
-
-  // 从地图上删除所有的Marker，Overlay，Polyline 等覆盖物，如果isKeepMyLocationOverlay为true，那么myLocationOverlay（内置定位覆盖物）不会被删除
-  clear(isKeepMyLocationOverlay: boolean): void
-  // 返回当前的地图显示类型
-  getMapType(): number
-  // 返回地图的用户界面设置对象
-  getUiSettings(): UiSettings
-
-  setOnMapLoadedListener(listener: () => void): void
-}
-
-export interface UiSettings {
-  // 获取“高德地图”Logo的位置
-  getLogoPosition(): number
-  // 获取设置的缩放按钮位置
-  getZoomPosition(): number
-  // 获取指南针状态 可用/不可用。
-  isCompassEnabled(): boolean
-  // 返回是否以地图中心点缩放
-  isGestureScaleByMapCenter(): boolean
-  // 返回室内地图楼层切换控件是否显示。
-  isIndoorSwitchEnabled(): boolean
-  // 返回当前地图是否显示了定位按钮
-  isMyLocationButtonEnabled(): boolean
-  // 返回旋转手势是否可用
-  isRotateGesturesEnabled(): boolean
-  // 返回比例尺功能是否可用
-  isScaleControlsEnabled(): boolean
-  // 返回当前地图是否允许通过手势移动地图
-  isScrollGesturesEnabled(): boolean
-  // 返回倾斜手势是否可用
-  isTiltGesturesEnabled(): boolean
-  // 返回当前地图是否显示了缩放按钮
-  isZoomControlsEnabled(): boolean
-  // 返回当前地图是否允许通过手势缩放地图
-  isZoomGesturesEnabled(): boolean
-  // 设置当前地图是否支持所有手势
-  setAllGesturesEnabled(enabled: boolean): void
-  // 这个方法设置了地图是否允许显示指南针
-  setCompassEnabled(enabled: boolean): void
-  // 设置是否以地图中心点缩放
-  setGestureScaleByMapCenter(isGestureScaleByMapCenter: boolean): void
-  // 设置室内地图楼层切换控件是否可见
-  setIndoorSwitchEnabled(isIndoorSwitchEnabled: boolean): void
-  // 设置Logo下边界距离屏幕底部的边距
-  setLogoBottomMargin(pixels: number): void
-  // 设置Logo左边界距离屏幕左侧的边距
-  setLogoLeftMargin(pixels: number): void
-  // N 设置“高德地图”Logo的位置
-  setLogoPosition(position: LogoPosition): void
-  // 设置定位按钮是否显示
-  setMyLocationButtonEnabled(enabled: boolean): void
-  // 设置旋转手势是否可用
-  setRotateGesturesEnabled(enabled: boolean): void
-  // 设置比例尺功能是否可用
-  setScaleControlsEnabled(enabled: boolean): void
-  // 这个方法设置了地图是否允许通过手势来移动
-  setScrollGesturesEnabled(enabled: boolean): void
-  // 设置倾斜手势是否可用
-  setTiltGesturesEnabled(enabled: boolean): void
-  // 这个方法设置了地图是否允许显示缩放按钮。如果允许，则在地图上显示。默认缩放按钮为显示。
-  setZoomControlsEnabled(enabled: boolean): void
-  // 这个方法设置了地图是否允许通过手势来缩放
-  setZoomGesturesEnabled(enabled: boolean): void
-  // 设置缩放按钮的位置
-  setZoomPosition(position: ZoomPosition): void
-}
-
 export interface AMapOnReadyData {
   eventName: string
-  object: any
-  map: AMap
-  android: any
+  mapView: any
+  map: AMapCommon
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AMapViewApi {}
 
 export abstract class AMapViewCommonBase extends View implements AMapViewApi {
-  protected map: AMap
+  protected map: AMapCommon
 }
 
 // MapView 初始化选项
-export const aMapOptionsProperty = new Property<AMapViewCommonBase, AMapOptionsForAndroid>({ name: 'aMapOptions' })
+export const aMapOptionsProperty = new Property<AMapViewCommonBase, AMapOptionsCommon>({ name: 'aMapOptions' })
 aMapOptionsProperty.register(AMapViewCommonBase)
 
 export abstract class AMapViewBase extends AMapViewCommonBase {
   static mapReadyEvent = 'mapReady'
 
-  protected aMapOptions: AMapOptionsForAndroid;
+  protected aMapOptions: AMapOptionsCommon;
 
-  [aMapOptionsProperty.setNative](value: AMapOptionsForAndroid) {
+  [aMapOptionsProperty.setNative](value: AMapOptionsCommon) {
     this.aMapOptions = value
   }
 }
 
-export abstract class AMapCommon {}
+export abstract class AMapCommon {
+  constructor(private $map, private $OnMapLoadedListener, private UiSettings: UiSettingsAPI) {}
 
-export interface MarkerOptions {
-  // 设置Marker覆盖物的透明度
-  alpha(alpha: number): MarkerOptions
-  // marker的海拔
-  altitude(altitude: number): MarkerOptions
-  // 设置Marker覆盖物的锚点比例。
-  anchor(u: number, v: number): MarkerOptions
-  // 设置Marker覆盖物是否可拖拽。
-  draggable(draggable: boolean): MarkerOptions
-  // 获取Marker覆盖物的透明度,透明度范围[0,1] 1为不透明,默认值为1
-  getAlpha(): number
-  // 获取marker海拔高度
-  getAltitude(): number
-  // 获取Marker覆盖物锚点在水平范围的比例。
-  getAnchorU(): number
-  // 获取Marker覆盖物锚点垂直范围的比例。
-  getAnchorV(): number
-  // 获取Marker覆盖物的图标。
-  getIcon(): any
-  // 获取Marker覆盖物的动画帧图标列表，动画的描点和大小以第一帧为准，建议图片大小保持一致。
-  getIcons(): Array<any>
-  // 获取Marker覆盖物的水平偏移距离
-  getInfoWindowOffsetX(): number
-  // 获取Marker覆盖物的垂直偏移距离
-  getInfoWindowOffsetY(): number
-  // 得到多少帧刷新一次图片资源，值越小动画越快。
-  getPeriod(): number
-  // 获取Marker覆盖物的坐标位置。
-  getPosition(): LatLng
-  // 获取 Marker覆盖物的图片旋转角度，从正北开始，逆时针计算。
-  getRotateAngle(): number
-  // 获取Marker覆盖物的文字片段。
-  getSnippet(): string
-  // 获取Marker覆盖物的标题。
-  getTitle(): string
-  // 获取Marker覆盖物zIndex。
-  getZIndex(): number
-  // 设置Marker覆盖物的图标。
-  icon(icon: any): MarkerOptions
-  // 设置Marker覆盖物的动画帧图标列表，多张图片模拟gif的效果。
-  icons(icons: Array<any>): MarkerOptions
-  // 设置Marker覆盖物的InfoWindow是否允许显示,默认为true
-  infoWindowEnable(enable: boolean): MarkerOptions
-  // 获取Marker覆盖物的拖拽状态。
-  isDraggable(): boolean
-  // 获取Marker覆盖物是否平贴地图。
-  isFlat(): boolean
-  // 获取Marker覆盖物的坐标是否是Gps，默认为false。
-  isGps(): boolean
-  // 获取Marker覆盖物的InfoWindow是否允许显示, 可以通过 MarkerOptions.infoWindowEnable(boolean) 进行设置
-  isInfoWindowEnable(): boolean
-  // 获取Marker覆盖物是否可见。
-  isVisible(): boolean
-  // 设置多少帧刷新一次图片资源，Marker动画的间隔时间，值越小动画越快
-  period(period: number): MarkerOptions
-  // 设置Marker覆盖物的位置坐标。
-  position(position: LatLng): MarkerOptions
-  // 设置Marker覆盖物的图片旋转角度，从正北开始，逆时针计算。
-  rotateAngle(angle: number): MarkerOptions
-  // 设置Marker覆盖物是否平贴地图
-  setFlat(flat: boolean): MarkerOptions
-  // 设置Marker覆盖物的坐标是否是Gps，默认为false。
-  setGps(gps: boolean): MarkerOptions
-  // 设置Marker覆盖物的InfoWindow相对Marker的偏移。
-  setInfoWindowOffset(offsetX: number, offsetY: number): MarkerOptions
-  // 设置 Marker覆盖物的 文字描述
-  snippet(snippet: string): MarkerOptions
-  // 设置 Marker覆盖物 的标题
-  title(title: string): MarkerOptions
-  // 设置Marker覆盖物是否可见。
-  visible(visible: boolean): MarkerOptions
-  // 设置Marker覆盖物的zIndex。
-  zIndex(zIndex: number): MarkerOptions
+  /**
+   * 从地图上删除所有的Marker，Overlay，Polyline 等覆盖物
+   */
+  clear(isKeepMyLocationOverlay: boolean): void {
+    this.$map.clear(isKeepMyLocationOverlay)
+  }
+
+  /**
+   * 返回当前的地图显示类型。可以参考MAP_TYPE_NORMAL, MAP_TYPE_SATELLITE。
+   */
+  getMapType(): number {
+    return this.$map.getMapType()
+  }
+
+  /**
+   * 返回地图的用户界面设置对象。
+   */
+  getUiSettings(): UiSettingsAPI {
+    return this.UiSettings
+  }
+
+  /**
+   * 地图加载完成监听接口
+   */
+  setOnMapLoadedListener(listener: () => void): void {
+    this.$map.setOnMapLoadedListener(
+      new this.$OnMapLoadedListener({
+        onMapLoaded: () => {
+          listener()
+        },
+      }),
+    )
+  }
+
+  /**
+   * 添加点标记
+   */
+  addMarker(markerOptions: MarkerOptionsCommon): Marker {
+    return this.$map.addMarker(markerOptions.get$MarkerOptions)
+  }
 }
 
 export interface Marker {
@@ -361,7 +245,7 @@ export interface Marker {
   // 获取Marker覆盖物的附加信息对象，即自定义的Marker的属性。
   getObject(): any
   // 获取Marker覆盖物的选项类
-  getOptions(): MarkerOptions
+  getOptions()
   // 得到多少帧刷新一次图片资源。
   getPeriod(): number
   // 获取 Marker 覆盖物的位置坐标。
@@ -413,7 +297,7 @@ export interface Marker {
   // 设置Marker覆盖物的InfoWindow是否允许显示,默认为true 设置为false之后, 调用Marker.showInfoWindow() 将不会生效
   setInfoWindowEnable(enable: boolean): void
   // 设置Marker覆盖物的属性选项类 通过markerOption 给marker设置属性
-  setMarkerOptions(markerOption: MarkerOptions): void
+  setMarkerOptions(markerOption): void
   // 设置Marker覆盖物的附加信息对象。
   setObject(object: any): void
   // 设置多少帧刷新一次图片资源，Marker动画的间隔时间，值越小动画越快。
@@ -438,4 +322,291 @@ export interface Marker {
   showInfoWindow(): void
   // 开始动画
   startAnimation(): void
+}
+
+export class MarkerOptionsCommon {
+  constructor(private $markerOptions, private $LatLng) {}
+
+  get get$MarkerOptions() {
+    return this.$markerOptions
+  }
+  // 设置Marker覆盖物的透明度
+  alpha(alpha: number) {
+    this.$markerOptions.alpha(alpha)
+    return this
+  }
+  // marker的海拔
+  altitude(altitude: number) {
+    this.$markerOptions.altitude(altitude)
+    return this
+  }
+  // 设置Marker覆盖物的锚点比例。
+  anchor(u: number, v: number) {
+    this.$markerOptions.anchor(u, v)
+    return this
+  }
+  // 设置Marker覆盖物是否可拖拽。
+  draggable(draggable: boolean) {
+    this.$markerOptions.draggable(draggable)
+    return this
+  }
+  // 获取Marker覆盖物的透明度,透明度范围[0,1] 1为不透明,默认值为1
+  getAlpha(): number {
+    return this.$markerOptions.getAlpha()
+  }
+  // 获取marker海拔高度
+  getAltitude(): number {
+    return this.$markerOptions.getAltitude()
+  }
+  // 获取Marker覆盖物锚点在水平范围的比例。
+  getAnchorU(): number {
+    return this.$markerOptions.getAnchorU()
+  }
+  // 获取Marker覆盖物锚点垂直范围的比例。
+  getAnchorV(): number {
+    return this.$markerOptions.getAnchorV()
+  }
+  // 获取Marker覆盖物的图标。
+  getIcon(): any {
+    return this.$markerOptions.getIcon()
+  }
+  // 获取Marker覆盖物的动画帧图标列表，动画的描点和大小以第一帧为准，建议图片大小保持一致。
+  getIcons(): Array<any> {
+    return this.$markerOptions.getIcons()
+  }
+  // 获取Marker覆盖物的水平偏移距离
+  getInfoWindowOffsetX(): number {
+    return this.$markerOptions.getInfoWindowOffsetX()
+  }
+  // 获取Marker覆盖物的垂直偏移距离
+  getInfoWindowOffsetY(): number {
+    return this.$markerOptions.getInfoWindowOffsetY()
+  }
+  // 得到多少帧刷新一次图片资源，值越小动画越快。
+  getPeriod(): number {
+    return this.$markerOptions.getPeriod()
+  }
+  // 获取Marker覆盖物的坐标位置。
+  getPosition(): LatLng {
+    return this.$markerOptions.getPosition()
+  }
+  // 获取 Marker覆盖物的图片旋转角度，从正北开始，逆时针计算。
+  getRotateAngle(): number {
+    return this.$markerOptions.getRotateAngle()
+  }
+  // 获取Marker覆盖物的文字片段。
+  getSnippet(): string {
+    return this.$markerOptions.getSnippet()
+  }
+  // 获取Marker覆盖物的标题。
+  getTitle(): string {
+    return this.$markerOptions.getTitle()
+  }
+  // 获取Marker覆盖物zIndex。
+  getZIndex(): number {
+    return this.$markerOptions.getZIndex()
+  }
+  // 设置Marker覆盖物的图标。
+  icon(icon: any) {
+    this.$markerOptions.icon(icon)
+    return this
+  }
+  // 设置Marker覆盖物的动画帧图标列表，多张图片模拟gif的效果。
+  icons(icons: Array<any>) {
+    this.$markerOptions.icons(icons)
+    return this
+  }
+  // 设置Marker覆盖物的InfoWindow是否允许显示,默认为true
+  infoWindowEnable(enable: boolean) {
+    this.$markerOptions.infoWindowEnable(enable)
+    return this
+  }
+  // 获取Marker覆盖物的拖拽状态。
+  isDraggable(): boolean {
+    return this.$markerOptions.isDraggable()
+  }
+  // 获取Marker覆盖物是否平贴地图。
+  isFlat(): boolean {
+    return this.$markerOptions.isFlat()
+  }
+  // 获取Marker覆盖物的坐标是否是Gps，默认为false。
+  isGps(): boolean {
+    return this.$markerOptions.isGps()
+  }
+  // 获取Marker覆盖物的InfoWindow是否允许显示, 可以通过 IMarkerOptions.infoWindowEnable(boolean) 进行设置
+  isInfoWindowEnable(): boolean {
+    return this.$markerOptions.isInfoWindowEnable()
+  }
+  // 获取Marker覆盖物是否可见。
+  isVisible(): boolean {
+    return this.$markerOptions.isVisible()
+  }
+  // 设置多少帧刷新一次图片资源，Marker动画的间隔时间，值越小动画越快
+  period(period: number) {
+    this.$markerOptions.period(period)
+    return this
+  }
+  // 设置Marker覆盖物的位置坐标。
+  position(position: LatLng) {
+    const target = new this.$LatLng(position.latitude, position.longitude)
+    this.$markerOptions.position(target)
+    return this
+  }
+  // 设置Marker覆盖物的图片旋转角度，从正北开始，逆时针计算。
+  rotateAngle(angle: number) {
+    this.$markerOptions.rotateAngle(angle)
+    return this
+  }
+  // 设置Marker覆盖物是否平贴地图
+  setFlat(flat: boolean) {
+    this.$markerOptions.setFlat(flat)
+    return this
+  }
+  // 设置Marker覆盖物的坐标是否是Gps，默认为false。
+  setGps(gps: boolean) {
+    this.$markerOptions.setGps(gps)
+    return this
+  }
+  // 设置Marker覆盖物的InfoWindow相对Marker的偏移。
+  setInfoWindowOffset(offsetX: number, offsetY: number) {
+    this.$markerOptions.setInfoWindowOffset(offsetX, offsetY)
+    return this
+  }
+  /**
+   * @desc 设置 Marker覆盖物的 文字描述
+   */
+  snippet(snippet: string) {
+    this.$markerOptions.snippet(snippet)
+    return this
+  }
+  // 设置 Marker覆盖物 的标题
+  title(title: string) {
+    this.$markerOptions.title(title)
+    return this
+  }
+  // 设置Marker覆盖物是否可见。
+  visible(visible: boolean) {
+    this.$markerOptions.visible(visible)
+    return this
+  }
+  // 设置Marker覆盖物的zIndex。
+  zIndex(zIndex: number) {
+    this.$markerOptions.zIndex(zIndex)
+    return this
+  }
+}
+
+export class UiSettingsAPI {
+  private uiSettings: any
+
+  constructor($map: any, private $AMapOptions) {
+    this.uiSettings = $map.getUiSettings()
+  }
+
+  getLogoPosition(): number {
+    return this.uiSettings.getLogoPosition()
+  }
+
+  getZoomPosition(): number {
+    return this.uiSettings.getZoomPosition()
+  }
+
+  isCompassEnabled(): boolean {
+    return this.uiSettings.isCompassEnabled()
+  }
+
+  isGestureScaleByMapCenter(): boolean {
+    return this.uiSettings.isGestureScaleByMapCenter()
+  }
+
+  isIndoorSwitchEnabled(): boolean {
+    return this.uiSettings.isIndoorSwitchEnabled()
+  }
+
+  isMyLocationButtonEnabled(): boolean {
+    return this.uiSettings.isMyLocationButtonEnabled()
+  }
+
+  isRotateGesturesEnabled(): boolean {
+    return this.uiSettings.isRotateGesturesEnabled()
+  }
+
+  isScaleControlsEnabled(): boolean {
+    return this.uiSettings.isScaleControlsEnabled()
+  }
+
+  isScrollGesturesEnabled(): boolean {
+    return this.uiSettings.isScrollGesturesEnabled()
+  }
+
+  isTiltGesturesEnabled(): boolean {
+    return this.uiSettings.isTiltGesturesEnabled()
+  }
+
+  isZoomControlsEnabled(): boolean {
+    return this.uiSettings.isZoomControlsEnabled()
+  }
+
+  isZoomGesturesEnabled(): boolean {
+    return this.uiSettings.isZoomGesturesEnabled()
+  }
+
+  setAllGesturesEnabled(enabled: boolean): void {
+    this.uiSettings.setAllGesturesEnabled(enabled)
+  }
+
+  setCompassEnabled(enabled: boolean): void {
+    this.uiSettings.setCompassEnabled(enabled)
+  }
+
+  setGestureScaleByMapCenter(isGestureScaleByMapCenter: boolean): void {
+    this.uiSettings.setGestureScaleByMapCenter(isGestureScaleByMapCenter)
+  }
+
+  setIndoorSwitchEnabled(isIndoorSwitchEnabled: boolean): void {
+    this.uiSettings.setIndoorSwitchEnabled(isIndoorSwitchEnabled)
+  }
+
+  setLogoBottomMargin(pixels: number): void {
+    this.uiSettings.setLogoBottomMargin(pixels)
+  }
+  setLogoLeftMargin(pixels: number): void {
+    this.uiSettings.setLogoLeftMargin(pixels)
+  }
+
+  setLogoPosition(position: LogoPosition): void {
+    this.uiSettings.setLogoPosition(this.$AMapOptions[position])
+  }
+
+  setMyLocationButtonEnabled(enabled: boolean): void {
+    this.uiSettings.setMyLocationButtonEnabled(enabled)
+  }
+
+  setRotateGesturesEnabled(enabled: boolean): void {
+    this.uiSettings.setRotateGesturesEnabled(enabled)
+  }
+
+  setScaleControlsEnabled(enabled: boolean): void {
+    this.uiSettings.setScaleControlsEnabled(enabled)
+  }
+
+  setScrollGesturesEnabled(enabled: boolean): void {
+    this.uiSettings.setScrollGesturesEnabled(enabled)
+  }
+
+  setTiltGesturesEnabled(enabled: boolean): void {
+    this.uiSettings.setTiltGesturesEnabled(enabled)
+  }
+
+  setZoomControlsEnabled(enabled: boolean): void {
+    this.uiSettings.setZoomControlsEnabled(enabled)
+  }
+
+  setZoomGesturesEnabled(enabled: boolean): void {
+    this.uiSettings.setZoomGesturesEnabled(enabled)
+  }
+
+  setZoomPosition(position: ZoomPosition): void {
+    this.uiSettings.setZoomPosition(this.$AMapOptions[position])
+  }
 }

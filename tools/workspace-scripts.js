@@ -61,13 +61,6 @@ module.exports = {
     // packages
     // build output is always in dist/packages
     '@evanyung': {
-      // @evanyung/amap
-      amap: {
-        build: {
-          script: 'nx run amap:build.all',
-          description: '@evanyung/amap: Build',
-        },
-      },
       // @evanyung/nativescript-amap
       'nativescript-amap': {
         build: {
@@ -85,10 +78,6 @@ module.exports = {
       description: '_____________  Focus (VS Code supported)  _____________',
     },
     focus: {
-      amap: {
-        script: 'nx run amap:focus',
-        description: 'Focus on @evanyung/amap',
-      },
       'nativescript-amap': {
         script: 'nx run nativescript-amap:focus',
         description: 'Focus on @evanyung/nativescript-amap',

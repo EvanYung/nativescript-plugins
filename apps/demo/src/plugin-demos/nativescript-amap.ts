@@ -1,7 +1,7 @@
 import { EventData, Page } from '@nativescript/core'
 import { DemoSharedNativescriptAmap } from '@demo/shared'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { AMap, AMapOnReadyData, AMapOptionsForAndroid, MapType, UiSettings } from '@evanyung/nativescript-amap'
+import { AMapOnReadyData, AMapOptions, MapType, MarkerOptions } from '@evanyung/nativescript-amap'
 
 export function navigatingTo(args: EventData) {
   const page = <Page>args.object
@@ -9,26 +9,37 @@ export function navigatingTo(args: EventData) {
 }
 
 export class DemoModel extends DemoSharedNativescriptAmap {
-  aMapOptions: AMapOptionsForAndroid
+  aMapOptions: AMapOptions
 
   constructor() {
     super()
-    this.aMapOptions = new AMapOptionsForAndroid()
-    this.aMapOptions.rotateGesturesEnabled(false)
-    this.aMapOptions.mapType(MapType.MAP_TYPE_BUS)
-
-    this.aMapOptions.camera({
-      target: {
-        latitude: 31.238068,
-        longitude: 121.501654,
-      },
-      zoom: 10,
-    })
+    this.aMapOptions = new AMapOptions()
+      .rotateGesturesEnabled(false)
+      .mapType(MapType.MAP_TYPE_BUS)
+      .camera({
+        target: {
+          latitude: 31.238068,
+          longitude: 121.501654,
+        },
+        zoom: 10,
+      })
   }
 
-  onMapReady(args: AMapOnReadyData): void {
-    const map: AMap = args.map
-    const uiSettings: UiSettings = map.getUiSettings()
+  onMapReady(args: AMapOnReadyData) {
+    const map = args.map
+    const uiSettings = map.getUiSettings()
+
     uiSettings.setZoomControlsEnabled(true)
+
+    const marker = map.addMarker(
+      new MarkerOptions()
+        .position({
+          latitude: 31.238068,
+          longitude: 121.501654,
+        })
+        .title('北京')
+        .snippet('DefaultMarker'),
+    )
+    console.log('🚀 ~ file: nativescript-amap.ts:44 ~ DemoModel ~ onMapReady ~ marker:', marker)
   }
 }
