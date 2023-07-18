@@ -202,21 +202,21 @@ export class AMapOptionsCommon {
 export interface AMapOnReadyData {
   eventName: string
   mapView: any
-  map: AMapCommon
+  map: AMapApiCommon
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AMapViewApi {}
 
-export abstract class AMapViewCommonBase extends View implements AMapViewApi {
-  protected map: AMapCommon
+export abstract class AMapViewBase extends View implements AMapViewApi {
+  protected map: AMapApiCommon
 }
 
 // MapView 初始化选项
-export const aMapOptionsProperty = new Property<AMapViewCommonBase, AMapOptionsCommon>({ name: 'aMapOptions' })
-aMapOptionsProperty.register(AMapViewCommonBase)
+export const aMapOptionsProperty = new Property<AMapViewBase, AMapOptionsCommon>({ name: 'aMapOptions' })
+aMapOptionsProperty.register(AMapViewBase)
 
-export abstract class AMapViewBase extends AMapViewCommonBase {
+export abstract class AMapViewCommon extends AMapViewBase {
   static mapReadyEvent = 'mapReady'
 
   protected aMapOptions: AMapOptionsCommon;
@@ -226,7 +226,7 @@ export abstract class AMapViewBase extends AMapViewCommonBase {
   }
 }
 
-export abstract class AMapCommon {
+export abstract class AMapApiCommon {
   constructor(private $map, private $OnMapLoadedListener, private UiSettings: UiSettingsAPI) {}
 
   /**

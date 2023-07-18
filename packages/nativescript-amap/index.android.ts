@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AMapOptionsCommon, AMapCommon, AMapViewBase, AMapOnReadyData, LogoPosition, ZoomPosition, LogoMargin, MapType, UiSettingsAPI, MarkerOptionsCommon } from './common'
+import { AMapOptionsCommon, AMapApiCommon, AMapViewCommon, AMapOnReadyData, LogoPosition, ZoomPosition, LogoMargin, MapType, UiSettingsAPI, MarkerOptionsCommon } from './common'
 
 declare let com
 
-export class AMapView extends AMapViewBase {
+export class AMapView extends AMapViewCommon {
   private mapView: any
 
   public createNativeView(): globalAndroid.widget.FrameLayout {
@@ -31,7 +31,7 @@ export class AMapView extends AMapViewBase {
 
     this.map.setOnMapLoadedListener(() => {
       this.notify(<AMapOnReadyData>{
-        eventName: AMapViewBase.mapReadyEvent,
+        eventName: AMapViewCommon.mapReadyEvent,
         map: this.map,
         mapView: this.mapView,
       })
@@ -43,7 +43,7 @@ export class AMapView extends AMapViewBase {
   }
 }
 
-export class AMapAPI extends AMapCommon {
+export class AMapAPI extends AMapApiCommon {
   constructor($map: any) {
     super($map, com.amap.api.maps.AMap.OnMapLoadedListener, new UiSettingsAPI($map, new com.amap.api.maps.AMapOptions()))
   }
