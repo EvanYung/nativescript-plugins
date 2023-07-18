@@ -1,6 +1,6 @@
 {
   "name": "@evanyung/nativescript-amap",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Add a plugin description",
   "main": "index",
   "typings": "index.d.ts",
@@ -24,6 +24,9 @@
   "author": {
     "name": "evanyung",
     "email": "yqq_1993@outlook.com"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "bugs": {
     "url": "https://github.com/EvanYung/nativescript-plugins/issues"
